@@ -1,0 +1,32 @@
+apiVersion: v2
+name: app
+description: A Triton chart for Kubernetes Deployment
+type: application
+
+version: 0.1.0
+
+keywords:
+  - deployment
+  - StatefulSet
+  - configmap
+  - secret
+  - HorizontalPodAutoscaler
+  - hpa
+  - VerticalPodAutoscaler
+  - podDisruptionBudget
+  - service
+  - ingress
+  - gateway
+  - httproute
+  - grpcroute
+  - analysisTemplate
+  - rbac
+
+maintainers:
+  - name: Rokas
+    url: https://github.com/carVertical/helm-charts
+
+dependencies:
+  - name: base
+    version: ~0
+    repository: file://../base
