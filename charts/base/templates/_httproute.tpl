@@ -71,8 +71,14 @@ spec:
       {{- end }}
     {{- end }}
 
-  hostnames:
+hostnames:
+    {{- if kindIs "slice" $hostValues.host }}
+      {{- range $hostValues.host }}
+    - {{ . | quote }}
+      {{- end }}
+    {{- else }}
     - {{ $hostValues.host | quote }}
+    {{- end }}
 
   rules:
     {{ $defaultList := list (dict "a" "b") }}
