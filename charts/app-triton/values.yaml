@@ -1,69 +1,4 @@
 # Default values
-schedulerName: kai-scheduler
-runtimeClassName: nvidia
-
-# resources:
-#   requests:
-#     cpu: "500m"
-#     memory: "2Gi"
-#     ephemeral-storage: "2Gi"
-#   limits:
-#     cpu: "500m"
-#     memory: "2Gi"
-#     ephemeral-storage: "2Gi"
-
-httpRoute:
-  enabled: true
-  parentRefs:
-  - group: gateway.networking.k8s.io
-    kind: Gateway
-    name: main
-    namespace: envoy-gateway-system
-  hosts:
-    - host: "serving.triton.ml.staging.carvertical.org"
-      paths:
-        - path: {{ .Values.triton.routes.PathPrefix }}
-          servicePort: 8000
-          filters:
-            - type: URLRewrite
-              urlRewrite:
-                path:
-                    type: ReplacePrefixMatch
-                    replacePrefixMatch: /
-      backendRefs:
-        - group: ""
-          kind: Service
-          name: {{ .Release.Name }}
-          port: 8000
-          weight: 1
-        - group: ""
-          kind: Service
-          name: {{ .Release.Name }}-canary
-          port: 8000
-          weight: 1
-
-grpcRoute:
-  enabled: true
-  parentRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: main
-      namespace: envoy-gateway-system
-  hostnames:
-    - "serving.triton.ml.staging.carvertical.org"
-  rules:
-  # - servicePort: 8001
-    - backendRefs:
-        - group: ""
-          kind: Service
-          name: {{ .Release.Name }}
-          port: 8001
-          weight: 1
-        - group: ""
-          kind: Service
-          name: {{ .Release.Name }}-canary
-          port: 8001
-          weight: 1
 
 ## set number of desired replics per environment (will be overriden if hpa is enabled (autoscaling))
 replicas: 1
@@ -78,8 +13,7 @@ image:
   # pullPolicy: IfNotPresent
   ## default tag, pipeline should add latest tag when pushing to production
   ## tag will be passed automatically through pipeline
-    repository: {{ .Values.awsAccountId }}.dkr.ecr.eu-central-1.amazonaws.com/ml-triton
-    tag: {{ .Values.tritonSpecNormalizerSkoda.imageTag }}
+  tag: "latest"
 
 ## secret name for dockerconfigjson secret
 # imagePullSecrets:
@@ -96,10 +30,8 @@ image:
 #   key: value
 
 ## pod level labels
-podLabels:
-    app: {{ .Release.Name }}
-    kai.scheduler/queue: test
-    release: {{ .Release.Name }}
+# podLabels:
+#   key: value
 
 ## override main selector labels
 # selectorLabels:
@@ -113,9 +45,7 @@ podLabels:
 annotations: {}
 
 ## add extra annotations to pod metadata
-podAnnotations:
-    gpu-memory: "2000"
-    kai.scheduler/unschedulableTimeoutSeconds: "300"
+podAnnotations: {}
 
 ## default update strategy if HorizontalPodAutoscaler (autoscaling) is not enabled
 ## .Values.argo.rollouts.strategy will take priority
@@ -152,75 +82,45 @@ securityContext: {}
 service:
   enabled: true
   ## override the service name (default is release name or Values.fullnameOverride)
-  name: {{ .Release.Name }}
+  # name: service-name
   ## change type to NodePort if gce ingress (ClusterIP is better for Nginx ingress)
   # type: ClusterIP
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8002"
-  labels:
-    app: {{ .Release.Name }}
-    # chart: {{ .Release.Chart }}
-    release: {{ .Release.Name }}
+  # annotations:
+  #   key: value
+  # labels:
+  #   key: value
   # loadBalancerIP: ""
   ##
   # clusterIP: ""
   # externalTrafficPolicy: Cluster
   ##
-  ports: 
-    - port: 8000
-      targetPort: http
-      name: http-inference-server
-    - port: 8001
-      targetPort: grpc
-      name: grpc-inference-server
-    - port: 8002
-      targetPort: metrics
-      name: metrics-inference-server
+  ports: []
+    # - port: 8080
+    #   targetPort: 9090 # default .port
+    #   protocol: "" # default "TCP"
+    #   name: net # default "http"
+    #   nodePort: # not needed
+    # - port: 9090
   ## if ports not defined, then .Values.ports will be used. If none defined, then http: 80
   ##
   ## https://kubernetes.io/docs/concepts/services-networking/service/#externalname
   # externalName: my.database.example.com
   ##
   # sessionAffinity: "ClientIP"
-  selector:
-    app: {{ .Release.Name }}
-    release: {{ .Release.Name }}
-
 
 ## for extra services
-extraServices:
-  {{ .Release.Name }}-canary:
-    name: {{ .Release.Name }}-canary
-    annotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "8002"
-    labels:
-      app: {{ .Release.Name }}
-    #   chart: {{ .Release.Chart }}
-      release: {{ .Release.Name }}
-    ports: 
-      - port: 8000
-        targetPort: http
-        name: http-inference-server
-      - port: 8001
-        targetPort: grpc
-        name: grpc-inference-server
-      - port: 8002
-        targetPort: metrics
-        name: metrics-inference-server
-    selector:
-      app: {{ .Release.Name }}
-      release: {{ .Release.Name }}
+# extraServices:
+#   servicetwo:
+#     ports:
+#       - port: 8090
+#         targetPort: 9090
 
 ## ports for default container
-ports:
-  - containerPort: 8000
-    name: http
-  - containerPort: 8001
-    name: grpc
-  - containerPort: 8002
-    name: metrics
+ports: []
+#   - containerPort: 8080
+#     name: http
+#     protocol: TCP
+#   - containerPort: 9090
 
 resources: {}
   # limits:
@@ -255,7 +155,7 @@ resources: {}
 # enableServiceLinks: false
 
 ## specify service account
-serviceAccountName: {{ .Release.Name }}
+# serviceAccountName: sa-name
 
 ## https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server
 ## automountServiceAccountToken: false
@@ -361,17 +261,9 @@ verticalPodAutoscaler:
   enabled: false
   updateMode: "Off"
 
-nodeSelector:
-  workload: triton
+nodeSelector: {}
 
-tolerations:
-  - key: "workload"
-    operator: "Equal"
-    value: "triton"
-    effect: "NoSchedule"
-  - key: "nvidia.com/gpu"
-    operator: "Exists"
-    effect: "NoSchedule"
+tolerations: []
 
 # affinity: {}
 
@@ -573,30 +465,17 @@ ingressList: []
 
 argo:
   rollouts:
-    enabled: true
+    enabled: false
     ## ref: https://argoproj.github.io/argo-rollouts/migrating/#convert-deployment-to-rollout
     ## changing apiVersion and kind to Convert Deployment to Rollout
     ## use "Native" to render a Rollout without a workloadRef/deployment dependency
-    type: Native
+    type: Deployment
     ## https://argoproj.github.io/argo-rollouts/migrating/#reference-deployment-from-rollout
     ## Reference Deployment From Rollout (true)
     ## type: workloadRef
     apiVersion: argoproj.io/v1alpha1
     kind: Rollout
-    strategy:
-        canary:
-            canaryService: {{ .Release.Name }}-canary
-            stableService: {{ .Release.Name }}
-            trafficRouting:
-                plugins:
-                    argoproj-labs/gatewayAPI:
-                        httpRoute: {{ .Release.Name }}
-                        grpcRoute: {{ .Release.Name }}
-                        namespace: {{ .Release.Namespace }}
-        steps:
-        - setWeight: 50
-        - pause: {duration: 10s}
-        - setWeight: 100
+    strategy: {}
       # canary:
       #   steps:
       #     - setWeight: 20
@@ -660,12 +539,10 @@ argo:
 #   devops:
 #     - user@mail.com
 
-ServiceAccount:
-  - name: {{ .Release.Name }}
-    annotations:
-      eks.amazonaws.com/role-arn: {{ .Values.triton.aws.roleArn }}
+# ServiceAccount:
+#   - name: name
 
-revisionHistoryLimit: 1
+# revisionHistoryLimit: 10
 
 
 
