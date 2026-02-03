@@ -71,13 +71,11 @@ spec:
       {{- end }}
     {{- end }}
 
-hostnames:
+  hostnames:
     {{- if kindIs "slice" $hostValues.host }}
-      {{- range $hostValues.host }}
-    - {{ . | quote }}
-      {{- end }}
+    {{- toYaml $hostValues.host | nindent 4 }}
     {{- else }}
-    - {{ $hostValues.host | quote }}
+      - {{ $hostValues.host | quote }}
     {{- end }}
 
   rules:
