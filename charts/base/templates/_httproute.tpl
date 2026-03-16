@@ -72,7 +72,11 @@ spec:
     {{- end }}
 
   hostnames:
-    - {{ $hostValues.host | quote }}
+    {{- if kindIs "slice" $hostValues.host }}
+    {{- toYaml $hostValues.host | nindent 4 }}
+    {{- else }}
+      - {{ $hostValues.host | quote }}
+    {{- end }}
 
   rules:
     {{ $defaultList := list (dict "a" "b") }}

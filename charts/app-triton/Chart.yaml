@@ -1,5 +1,5 @@
 apiVersion: v2
-name: app
+name: app-triton
 description: A Triton chart for Kubernetes Deployment
 type: application
 
