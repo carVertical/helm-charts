@@ -508,6 +508,19 @@ argo:
     #           backoffLimit: 0
     #     count: 1
 
+## DatadogMetric custom resource
+## ref: https://docs.datadoghq.com/containers/guide/cluster_agent_autoscaling_metrics/?tab=datadogoperator
+datadogMetric:
+  enabled: false
+  # apiVersion: datadoghq.com/v1alpha1
+  # name: app-rps
+  # namespace: default
+  # annotations:
+  #   key: value
+  # spec:
+  #   query: "avg:nginx.net.request_per_s{kube_container_name:app}.rollup(60)"
+  #   maxAge: 60
+
 # ClusterRoleBinding:
 #   - name: clusterrolebinding-cluster-admin
 #     UserLists:

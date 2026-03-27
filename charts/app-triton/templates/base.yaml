@@ -16,5 +16,6 @@
 {{ include "base.argoRollouts" . }}
 {{ include "base.argoRolloutsNative" . }}
 {{ include "base.analysisTemplate" . }}
+{{ include "base.datadogMetric" . }}
 # {{ include "base.pvc" . }}
 {{ include "base.raw" . }}
