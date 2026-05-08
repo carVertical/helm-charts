@@ -1,5 +1,6 @@
 {{- define "base.job" -}}
 {{- $root := . -}}
+{{- $podAnnotations := include "base.podAnnotations" $root | trim -}}
 ---
 apiVersion: {{ $root.Values.apiVersion | default "batch/v1" }}
 kind: Job
@@ -33,11 +34,11 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   template:
-    {{- if or $root.Values.podAnnotations $root.Values.podLabels }}
+    {{- if or $podAnnotations $root.Values.podLabels }}
     metadata:
-      {{- if $root.Values.podAnnotations }}
+      {{- with $podAnnotations }}
       annotations:
-        {{- include "base.valuesPairs" $root.Values.podAnnotations | trim | nindent 8 }}
+        {{- . | nindent 8 }}
       {{- end }}
       {{- with $root.Values.podLabels }}
       labels:
