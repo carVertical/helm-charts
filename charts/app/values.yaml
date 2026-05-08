@@ -169,6 +169,29 @@ prometheusScrapePort: http
 ## define prometheus.io/path
 prometheusScrapePath: /actuator/prometheus
 
+## Datadog OpenMetrics metric allowlist annotation.
+## When set, renders ad.datadoghq.com/<container>.checks on the pod template.
+## Defaults to http://%%host%%:8002/metrics.
+shipMetrics: null
+# shipMetrics:
+#   - nv_inference_request_success
+#   - nv_inference_request_failure
+#   - nv_inference_queue_duration_us
+# shipMetrics:
+#   containerName: triton
+#   port: 8002
+#   path: /metrics
+#   namespace: ""
+#   metrics:
+#     - nv_inference_request_success
+#     - nv_inference_request_failure
+#     - nv_inference_queue_duration_us
+# shipMetrics:
+#   metrics:
+#     nv_inference_request_success: true
+#     nv_inference_request_failure: true
+#     nv_inference_queue_duration_us: true
+
 ## enable HorizontalPodAutoscalers
 autoscaling:
   enabled: false

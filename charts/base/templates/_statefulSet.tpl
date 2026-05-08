@@ -1,6 +1,7 @@
 {{- define "base.statefulSet" -}}
 {{- if .Values.statefulSet }}
 {{- $root := . -}}
+{{- $podAnnotations := include "base.podAnnotations" $root | trim -}}
 ---
 apiVersion: {{ $root.Values.apiVersion | default "apps/v1" }}
 kind: {{ include "base.kind" . }}
@@ -40,16 +41,9 @@ spec:
         {{- with $root.Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- if or $root.Values.prometheusScrape $root.Values.podAnnotations }}
+      {{- with $podAnnotations }}
       annotations:
-        {{- if $root.Values.prometheusScrape }}
-        prometheus.io/path: {{ $root.Values.prometheusScrapePath | quote }}
-        prometheus.io/port: {{ $root.Values.prometheusScrapePort | quote }}
-        prometheus.io/scrape: "true"
-        {{- end }}
-        {{- if $root.Values.podAnnotations }}
-        {{- include "base.valuesPairs" $root.Values.podAnnotations | trim | nindent 8 }}
-        {{- end }}
+        {{- . | nindent 8 }}
       {{- end }}
     spec:
       {{- with include "base.podDefaultProperties" $root }}
