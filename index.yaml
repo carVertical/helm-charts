@@ -35,6 +35,38 @@ entries:
     version: 0.17.2
   app-triton:
   - apiVersion: v2
+    created: "2026-05-11T12:08:05.594683634Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Triton chart for Kubernetes Deployment
+    digest: 4edd9333541b543db761c6f54bea93bc74d6ae3d7745554df6c1f392321d508f
+    keywords:
+    - deployment
+    - StatefulSet
+    - configmap
+    - secret
+    - HorizontalPodAutoscaler
+    - hpa
+    - VerticalPodAutoscaler
+    - podDisruptionBudget
+    - service
+    - ingress
+    - gateway
+    - httproute
+    - grpcroute
+    - analysisTemplate
+    - rbac
+    maintainers:
+    - name: Rokas
+      url: https://github.com/carVertical/helm-charts
+    name: app-triton
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/app-triton-0.1.1/app-triton-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2026-05-11T10:28:52.188968516Z"
     dependencies:
     - name: base
@@ -263,4 +295,4 @@ entries:
     urls:
     - https://github.com/carVertical/helm-charts/releases/download/service-0.17.2/service-0.17.2.tgz
     version: 0.17.2
-generated: "2026-05-11T10:28:54.06976728Z"
+generated: "2026-05-11T12:08:05.594693238Z"
