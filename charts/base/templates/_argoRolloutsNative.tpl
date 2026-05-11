@@ -2,6 +2,7 @@
 {{- if and .Values.argo.rollouts.enabled (eq .Values.argo.rollouts.type "Native") }}
 {{- if not .Values.statefulSet }}
 {{- $root := . -}}
+{{- $podAnnotations := include "base.podAnnotations" $root | trim -}}
 ---
 apiVersion: {{ $root.Values.argo.rollouts.apiVersion | default "argoproj.io/v1alpha1" }}
 kind: {{ $root.Values.argo.rollouts.kind | default "Rollout" }}
@@ -43,16 +44,9 @@ spec:
       {{- include "base.selectorLabels" $root | trim | nindent 6 }}
   template:
     metadata:
-      {{- if or $root.Values.prometheusScrape $root.Values.podAnnotations }}
+      {{- with $podAnnotations }}
       annotations:
-        {{- if $root.Values.prometheusScrape }}
-        prometheus.io/path: {{ $root.Values.prometheusScrapePath | quote }}
-        prometheus.io/port: {{ $root.Values.prometheusScrapePort | quote }}
-        prometheus.io/scrape: "true"
-        {{- end }}
-        {{- if $root.Values.podAnnotations }}
-        {{- include "base.valuesPairs" $root.Values.podAnnotations | trim | nindent 8 }}
-        {{- end }}
+        {{- . | nindent 8 }}
       {{- end }}
       labels:
         {{- with $root.Values.podLabels }}

@@ -1,5 +1,6 @@
 {{- define "base.cronjob" -}}
 {{- $root := . -}}
+{{- $podAnnotations := include "base.podAnnotations" $root | trim -}}
 ---
 apiVersion: {{ $root.Values.apiVersion | default "batch/v1" }}
 kind: CronJob
@@ -49,11 +50,11 @@ spec:
       parallelism: {{ $root.Values.parallelism }}
       {{- end }}
       template:
-        {{- if or $root.Values.podAnnotations $root.Values.podLabels }}
+        {{- if or $podAnnotations $root.Values.podLabels }}
         metadata:
-          {{- if $root.Values.podAnnotations }}
+          {{- with $podAnnotations }}
           annotations:
-            {{- include "base.valuesPairs" $root.Values.podAnnotations | trim | nindent 12 }}
+            {{- . | nindent 12 }}
           {{- end }}
           {{- with $root.Values.podLabels }}
           labels:
