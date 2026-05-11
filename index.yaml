@@ -1,0 +1,266 @@
+apiVersion: v1
+entries:
+  app:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:51.999790882Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Kubernetes Deployment
+    digest: 5e2d6d2fc626b5e5144eb2ad3813cc189ad7728b7f0fb67c73f9e207c325691a
+    keywords:
+    - deployment
+    - StatefulSet
+    - configmap
+    - secret
+    - HorizontalPodAutoscaler
+    - hpa
+    - VerticalPodAutoscaler
+    - podDisruptionBudget
+    - service
+    - ingress
+    - gateway
+    - httproute
+    - grpcroute
+    - analysisTemplate
+    - rbac
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: app
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/app-0.17.2/app-0.17.2.tgz
+    version: 0.17.2
+  app-triton:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:52.188968516Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Triton chart for Kubernetes Deployment
+    digest: e6dc5bb41fc4e7a730929eb0a3223e6c482a8c3c15d0eb0b167ab1f50048ee71
+    keywords:
+    - deployment
+    - StatefulSet
+    - configmap
+    - secret
+    - HorizontalPodAutoscaler
+    - hpa
+    - VerticalPodAutoscaler
+    - podDisruptionBudget
+    - service
+    - ingress
+    - gateway
+    - httproute
+    - grpcroute
+    - analysisTemplate
+    - rbac
+    maintainers:
+    - name: Rokas
+      url: https://github.com/carVertical/helm-charts
+    name: app-triton
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/app-triton-0.1.0/app-triton-0.1.0.tgz
+    version: 0.1.0
+  argo-applications:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:52.337505918Z"
+    description: A Helm chart for Kubernetes argo applications
+    digest: 312291b8ee98c7fdb00ad9e3306753c5a2b3dec221d620e1edcd860539a8b1f9
+    keywords:
+    - argocd
+    - workflows
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: argo-applications
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/argo-applications-0.17.2/argo-applications-0.17.2.tgz
+    version: 0.17.2
+  argo-workflows:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:52.487076621Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Kubernetes argocd workflows
+    digest: dd9e4fda014330ea78e0c62e2e451ef91c3edb206ba3a087a12c61757a3a3d12
+    keywords:
+    - argocd
+    - workflows
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: argo-workflows
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/argo-workflows-0.17.2/argo-workflows-0.17.2.tgz
+    version: 0.17.2
+  base:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:52.681339385Z"
+    description: A Helm chart for Kubernetes with helm named templates
+    digest: 67f7e953075717465df4f966c40e3ca4c418924d8d2167c6a4c8f009cc9c0ff5
+    keywords:
+    - deployment
+    - configmap
+    - secret
+    - HorizontalPodAutoscaler
+    - hpa
+    - VerticalPodAutoscaler
+    - podDisruptionBudget
+    - service
+    - ingress
+    - storageClass
+    - pvc
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: base
+    type: library
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/base-0.17.2/base-0.17.2.tgz
+    version: 0.17.2
+  cronjob:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:52.876918903Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Kubernetes cronjob
+    digest: 0266dfb37c1ccc53f8af1b0f4b557a8904b85e35b5963e434de63bd0cd5af226
+    keywords:
+    - cronjob
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: cronjob
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/cronjob-0.17.2/cronjob-0.17.2.tgz
+    version: 0.17.2
+  default-base:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:53.097226622Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Kubernetes - default-base for namespaces
+    digest: 428d60a5606adac44ac27983cdec8381184699729ac4971441dc3be0963f79a5
+    keywords:
+    - BackendConfig
+    - StorageClass
+    - pvc
+    - configmap
+    - secret
+    - tls
+    - dockerconfigjson
+    - rbac
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: default-base
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/default-base-0.17.2/default-base-0.17.2.tgz
+    version: 0.17.2
+  ingress:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:53.279926388Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Kubernetes ingress
+    digest: 912462df6770c7769b26fcbad6247bd16eb4d2aabc888825a2647868447c95f5
+    keywords:
+    - ingress
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: ingress
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/ingress-0.17.2/ingress-0.17.2.tgz
+    version: 0.17.2
+  job:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:53.475991727Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Kubernetes job
+    digest: c1798901d8591c04634cf32a637b76bbd8a566d958da4832d1936e1c6124fcc8
+    keywords:
+    - job
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: job
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/job-0.17.2/job-0.17.2.tgz
+    version: 0.17.2
+  prometheus-rules:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:53.657183489Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Prometheus Rules
+    digest: d6f45b4a9d8b238663c1abe85b920837b2b7f3ae74b0595459c267ca440569e8
+    keywords:
+    - job
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: prometheus-rules
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/prometheus-rules-0.17.2/prometheus-rules-0.17.2.tgz
+    version: 0.17.2
+  rbac:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:53.849774624Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Kubernetes rbac
+    digest: b1b1d5a7564d0941d2e7d452f84aae5bffba9ea087e009788df466083b15e56c
+    keywords:
+    - rbac
+    name: rbac
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/rbac-0.17.2/rbac-0.17.2.tgz
+    version: 0.17.2
+  service:
+  - apiVersion: v2
+    created: "2026-05-11T10:28:54.069761899Z"
+    dependencies:
+    - name: base
+      repository: file://../base
+      version: ~0
+    description: A Helm chart for Kubernetes service
+    digest: f1cb65b4e411986a2c4c4f3647c18ee514bd95f88ce02aef6440f1891e0e79d4
+    keywords:
+    - service
+    maintainers:
+    - name: juri
+      url: https://github.com/juriku/helm-charts
+    name: service
+    type: application
+    urls:
+    - https://github.com/carVertical/helm-charts/releases/download/service-0.17.2/service-0.17.2.tgz
+    version: 0.17.2
+generated: "2026-05-11T10:28:54.06976728Z"
