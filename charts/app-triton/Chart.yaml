@@ -3,7 +3,7 @@ name: app-triton
 description: A Triton chart for Kubernetes Deployment
 type: application
 
-version: 0.1.0
+version: 0.1.1
 
 keywords:
   - deployment
